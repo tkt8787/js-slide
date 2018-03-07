@@ -81,71 +81,85 @@ var images = [
 var prevBtn = document.getElementById('prev-btn');
 var nextBtn = document.getElementById('next-btn');
 
-prevBtn.addEventListener('click', function(event) {
-  console.log(event.target);
-  event.preventDefault();
-  var currentImgSrc = modalImg.getAttribute('src');
-  var currentImgSrcSplit = currentImgSrc.split('/');
-  var currentImgNumber = +currentImgSrcSplit[currentImgSrcSplit.length - 1].substr(4, 1);
-  // var nextImgNumber = currentImgNumber;
-
-  // 表示する画像の枚数によって変更する
-  // 3枚目から1枚目の表示の場合の処理
-  if (currentImgNumber !== 1) {
-    currentImgNumber--;
-  } else {
-    currentImgNumber = 3;
-  }
-  // currentImgNumber = 1;
-
-  var nextImgSrc = './img/img0' + currentImgNumber + '.jpg';
-  // var nextImgSrc = images[nextImgNumber].url;
-
-  modalImg.setAttribute('src', nextImgSrc);
-});
-
-nextBtn.addEventListener('click', function(event) {
-  console.dir(event.target);
-  event.preventDefault();
-  var currentImgSrc = modalImg.getAttribute('src');
-  var currentImgSrcSplit = currentImgSrc.split('/');
-  var currentImgNumber = +currentImgSrcSplit[currentImgSrcSplit.length - 1].substr(4, 1);
-  // var nextImgNumber = currentImgNumber;
-
-  // 表示する画像の枚数によって変更する
-  // 3枚目から1枚目の表示の場合の処理
-  if (currentImgNumber !== imageLists.children.length) {
-    currentImgNumber++;
-  } else {
-    currentImgNumber = 1;
-  }
-  // currentImgNumber = 1;
-
-
-
-  var nextImgSrc = './img/img0' + currentImgNumber + '.jpg';
-  // var nextImgSrc = images[nextImgNumber].url;
-
-  modalImg.setAttribute('src', nextImgSrc);
-  console.log(nextImgSrc);
-});
-
-// preventDeafult();
-
 // prevBtn.addEventListener('click', function(event) {
-//   msg(event);
+//   console.log(event.target);
+//   event.preventDefault();
+//   var currentImgSrc = modalImg.getAttribute('src');
+//   var currentImgSrcSplit = currentImgSrc.split('/');
+//   var currentImgNumber = +currentImgSrcSplit[currentImgSrcSplit.length - 1].substr(4, 1);
+//   // var nextImgNumber = currentImgNumber;
+//
+//   // 表示する画像の枚数によって変更する
+//   // 3枚目から1枚目の表示の場合の処理
+//   if (currentImgNumber !== 1) {
+//     currentImgNumber--;
+//   } else {
+//     currentImgNumber = 3;
+//   }
+//   // currentImgNumber = 1;
+//
+//   var nextImgSrc = './img/img0' + currentImgNumber + '.jpg';
+//   // var nextImgSrc = images[nextImgNumber].url;
+//
+//   modalImg.setAttribute('src', nextImgSrc);
 // });
 //
 // nextBtn.addEventListener('click', function(event) {
-//   msg(event);
+//   console.dir(event.target);
+//   event.preventDefault();
+//   var currentImgSrc = modalImg.getAttribute('src');
+//   var currentImgSrcSplit = currentImgSrc.split('/');
+//   var currentImgNumber = +currentImgSrcSplit[currentImgSrcSplit.length - 1].substr(4, 1);
+//   // var nextImgNumber = currentImgNumber;
+//
+//   // 表示する画像の枚数によって変更する
+//   // 3枚目から1枚目の表示の場合の処理
+//   if (currentImgNumber !== imageLists.children.length) {
+//     currentImgNumber++;
+//   } else {
+//     currentImgNumber = 1;
+//   }
+//   // currentImgNumber = 1;
+//
+//
+//
+//   var nextImgSrc = './img/img0' + currentImgNumber + '.jpg';
+//   // var nextImgSrc = images[nextImgNumber].url;
+//
+//   modalImg.setAttribute('src', nextImgSrc);
+//   console.log(nextImgSrc);
 // });
 //
-// function msg(e) {
-//   if (e.target.classList.contains('fa-caret-left')) {
-//     console.log('prevBtnが押された時の処理');
+// preventDeafult();
 //
-//   } else { // 次に行くボタンを押している場合
-//     console.log('nextBtnが押された時の処理');
-//
-//   }
-// }
+prevBtn.addEventListener('click', function(event) {
+  modalSlide(event);
+});
+
+nextBtn.addEventListener('click', function(event) {
+  modalSlide(event);
+});
+
+function modalSlide(e) {
+  e.preventDefault();
+  var currentImgSrc = modalImg.getAttribute('src');
+  var currentImgSrcSplit = currentImgSrc.split('/');
+  var currentImgNumber = +currentImgSrcSplit[currentImgSrcSplit.length - 1].substr(4, 1);
+
+  if (e.target.classList.contains('fa-caret-left')) {
+    console.log('prevBtnが押された時の処理');
+    currentImgNumber--;
+    if (currentImgNumber === 0){
+      currentImgNumber = 3;
+    }
+
+  } else { // 次に行くボタンを押している場合
+    console.log('nextBtnが押された時の処理');
+    currentImgNumber++;
+    if (currentImgNumber === 4) {
+      currentImgNumber = 1;
+    }
+  }
+     var nextImgSrc = './img/img0' + currentImgNumber + '.jpg';
+      modalImg.setAttribute('src', nextImgSrc);
+}
